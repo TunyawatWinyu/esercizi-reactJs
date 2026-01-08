@@ -131,6 +131,12 @@ function PackingList({
   sortBy,
   setSortBy,
 }) {
+  function handlerClearList() {
+    const confirmed = window.confirm(
+      "Aree you surre you want to delete all items ?"
+    );
+    if (confirmed) setItems([]);
+  }
   return (
     <>
       <div className="list">
@@ -147,12 +153,17 @@ function PackingList({
             );
           })}
         </ul>
-        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-          <option value={"input"}>SORT BY INPUT ORDER</option>
-          <option value={"mostRecent"}>SORT BY FROM THE MOST RECENT</option>
-          <option value={"leastRecent"}>SORT BY FROM THE LEAST RECENT </option>
-          <option value={"packed"}>SORT BY FROM PACKED ITEMS </option>
-        </select>
+        <div className="actions">
+          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+            <option value={"input"}>SORT BY INPUT ORDER</option>
+            <option value={"mostRecent"}>SORT BY FROM THE MOST RECENT</option>
+            <option value={"leastRecent"}>
+              SORT BY FROM THE LEAST RECENT{" "}
+            </option>
+            <option value={"packed"}>SORT BY FROM PACKED ITEMS </option>
+          </select>
+          <button onClick={() => handlerClearList()}>Clear List</button>
+        </div>
       </div>
     </>
   );
@@ -181,14 +192,14 @@ function Stats({ items }) {
     );
   }
   const numPacked = items.filter((item) => item.packed).length;
-  const percentage = (numPacked / items.length) * 100;
+  const percentage = Math.round((numPacked / items.length) * 100);
   return (
     <>
       <footer className="stats">
         <em>
           {percentage === 100
-            ? `You got everything!!🚀 Ready to go ✈️`
-            : `you have ${items.length} items on your list , and you already ${numPacked}
+            ? `You got everything!!🚀 You're ready to go ✈️`
+            : `you have ${items.length} items on your list , and you already packed ${numPacked} 
           (${percentage}%)`}
         </em>
       </footer>

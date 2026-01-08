@@ -102,6 +102,7 @@ function PackingList({ items, setItems }) {
           <option>SORT BY FROM THE MOST RECENT</option>
           <option>SORT BY FROM THE LEAST RECENT </option>
         </select>
+        <button>Clear List</button>
       </div>
     </>
   );
